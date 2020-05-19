@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="style.css" media="screen" type="text/css" ">
+		<title>Inscription et authentification</title>
+	</head>
+	<body>
+		<div id="container">
+		<form action="inscription.php" method="get">
+			<fieldset>
+				<legend>Inscription</legend>
+				<input type="text" name="pseudo" placeholder="utilisateur">
+				<input type="password" name="passwordhash" placeholder="Mot de passe">
+				<button type="submit">S'inscrire</button>
+			</fieldset>
+		</form>
+		<form action="authentification.php" method="get">
+			<fieldset>
+				<legend>Authentification</legend>
+				<input type="text" name="pseudo" placeholder="utilisateur">
+				<input type="password" name="passwordhash" placeholder="Mot de passe">
+				<button type="submit">S'authentifier</button>
+			</fieldset>
+		</form>
+		</div>
+	</body>
+</html>
