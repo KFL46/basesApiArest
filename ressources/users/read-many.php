@@ -1,0 +1,21 @@
+<?php
+  
+      $dbh = new PDO
+      (
+          'mysql:host=localhost;dbname=petitesannonces;charset=utf8',
+          'root',
+          '',
+          [
+              PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+              PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
+          ]
+  
+  );
+
+    $query= 'SELECT utilisateur, id FROM utilisateurs';
+    $sth = $dbh->query($query);
+    $users = $sth->fetchAll();
+
+header('Content-Type: application/json');
+echo json_encode($users);
+
