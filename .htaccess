@@ -1,3 +1,5 @@
 RewriteEngine on
 RewriteRule ^([a-z]+)$ router.php?resource=$1 [L,QSA]
 RewriteRule ^([a-z]+)/([1-9][0-9]*)$ router.php?resource=$1&id=$2 [L,QSA]
+
+

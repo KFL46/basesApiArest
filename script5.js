@@ -61,7 +61,7 @@ function affUnUser(unUser) {
     content.classList.add("content")
     let header = document.createElement("div")
     header.classList.add("header")
-    header.innerHTML = unUser.email
+    header.innerHTML = unUser.utilisateur
     content.appendChild(header)
 
     let meta = document.createElement("div")
@@ -92,8 +92,83 @@ window.addEventListener("load", () => {
 
     document.getElementById("menLstUt").addEventListener("click", (e) => {
         e.preventDefault()
-        reqAj('GET', "http://basesApirest/users", "contener", "", listeUsers)
+        reqAj('GET', "http://localhost/basesApirest/users", "contener", "", listeUsers)
     })
 
-    reqAj('GET', "http://basesApirest/users", "contener", "", listeUsers)
+    reqAj('GET', "http://localhost/basesApirest/users", "contener", "", listeUsers)
 })
+
+
+//---------------------------enregistrement de l'utilisateur ----------------------------------//
+
+
+function affFormNewUser() {
+    document.getElementById("contener").innerHTML = " "
+    let monForm = document.createElement("form")
+    monForm.classList.add("ui")
+    monForm.classList.add("form")
+    let tabInput = [
+        {
+            label: "Adresse e-mail",
+            type: "text",
+            id: "mailUser",
+            value: ""
+        }, {
+            label: "Mot de passe",
+            type: "password",
+            id: "passwdUser",
+            value: ""
+        }, {
+            label: "Confirmez le mot de passe",
+            type: "password",
+            id: "confirmPasswd",
+            value: ""
+        }
+    ]
+    creerChampForm(monForm, tabInput)
+
+    let monBout = document.createElement("button")
+    monBout.classList.add("ui")
+    monBout.classList.add("button")
+    monBout.innerHTML = "Enregistrez vous"
+    monForm.appendChild(monBout)
+
+    document.getElementById("contener").appendChild(monForm)
+
+}
+function creerChampForm(unForm, tabChamps) {
+    for (unChamp of tabChamps) {
+        let monCont = document.createElement("div")
+        monCont.classList.add("field")
+
+        let monLab = document.createElement("label")
+        monLab.innerHTML = unChamp.label
+        monCont.appendChild(monLab)
+
+        let monInput = document.createElement('input')
+        if (unChamp.type == "readonly") {
+            monInput.type = "text"
+            monInput.readonly = "readonly"
+        }
+        else {
+            monInput.type = unChamp.type
+        }
+        monInput.id = unChamp.id
+        monInput.value = unChamp.value
+        monCont.appendChild(monInput)
+
+        unForm.appendChild(monCont)
+    }
+
+}
+window.addEventListener("load", () => {
+
+    document.getElementById("menInscUt").addEventListener("click", (e) => {
+        e.preventDefault()
+        affFormNewUser()
+        reqAj('GET', "http://localhost/basesApirest/users", "contener", "", listeUsers)
+    })
+
+        reqAj('GET', "http://localhost/basesApirest/users", "contener", "", listeUsers)
+})
+
