@@ -80,6 +80,10 @@ function affUnUser(unUser) {
     item.appendChild(tinyImg)
     item.appendChild(content)
     return item
+
+    supp.addEventListener('click', () => {
+        reqAj('DELETE', "http://192.168.1.3/API/users/" + unUser.id, "contener", "", delUnUser)
+    })
 }
 
 function ajxDebug(xhr, div) {
@@ -171,4 +175,58 @@ window.addEventListener("load", () => {
 
         reqAj('GET', "http://localhost/basesApirest/users", "contener", "", listeUsers)
 })
+function validFormNewUser(e) {
+    e.preventDefault()
+    if (document.getElementById("passwdUser").value != document.getElementById("confirmPasswd").value) {
+        document.getElementById("contener").innerHTML = " "
+        let monMess = document.createElement('div')
+        monMess.classList.add("ui")
+        monMess.classList.add("message")
+        monMess.classList.add("negative")
+        monMess.innerHTML = "Les mots de passe ne correspondent pas !"
+        document.getElementById("contener").appendChild(monMess)
+    }
+    else {
+        reqAj('POST', "localhost/basesApirest/users", "contener", "email=" + document.getElementById("mailUser").value + "&password=" + document.getElementById("passwdUser").value, ajouteUnUser)
+    }
+}
+function ajouteUnUser(xhr, div) {
+    console.log(div)
+    console.log(xhr)
+    let madiv = document.getElementById(div)
+    let status = xhr.status
+    madiv.innerHTML = " "
+    let monMess = document.createElement('div')
+    monMess.classList.add("ui")
+    monMess.classList.add("message")
+    if (status == 201) {
+        monMess.classList.add("positive")
+        monMess.innerHTML = "Utilisateur bien ajouté"
 
+    }
+    else {
+
+        monMess.classList.add("negative")
+        monMess.innerHTML = "L'ajout de l'utilisateur n'a pas fonctionné"
+    }
+    madiv.appendChild(monMess)
+}
+function delUnUser(xhr, div) {
+    let status = xhr.status
+    let madiv = document.getElementById(div)
+    madiv.innerHTML = " "
+    let monMess = document.createElement('div')
+    monMess.classList.add("ui")
+    monMess.classList.add("message")
+    if (status == 204) {
+        monMess.classList.add("positive")
+        monMess.innerHTML = "Utilisateur bien supprimé"
+
+    }
+    else {
+
+        monMess.classList.add("negative")
+        monMess.innerHTML = "La suppression de l'utilisateur n'a pas fonctionné"
+    }
+    madiv.appendChild(monMess)
+}
